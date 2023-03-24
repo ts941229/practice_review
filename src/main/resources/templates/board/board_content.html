@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>게시글 페이지</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	header {
+		background-color: #333;
+		color: white;
+		padding: 10px;
+	}
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+	h2 {
+		margin-top: 0;
+	}
+	.meta {
+		font-style: italic;
+		color: #666;
+	}
+</style>
+</head>
+<body>
+	<header>
+		<h1>게시글 제목</h1>
+	</header>
+	<div class="container">
+		<p class="meta">작성자: 작성자1 | 작성일: 2023-03-24</p>
+		<hr>
+		<p>
+			게시글 내용을 여기에 입력하세요.
+		</p>
+		<hr>
+		<a href="/board_list">목록으로 돌아가기</a>
+		<a href="#">수정</a>
+		<a href="#">삭제</a>
+	</div>
+</body>
+</html>
