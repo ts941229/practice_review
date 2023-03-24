@@ -21,4 +21,9 @@ public class BoardController {
 		return "/board/board_write";
 	}
 	
+	@GetMapping("/board_edit")
+	public String BoardEditPage() {
+		return "/board/board_edit";
+	}
+	
 }
