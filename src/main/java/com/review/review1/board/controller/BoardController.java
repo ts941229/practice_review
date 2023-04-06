@@ -1,4 +1,4 @@
-package com.review.review1.board;
+package com.review.review1.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
