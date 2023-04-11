@@ -13,7 +13,7 @@
 	
 		<h2 class="mb-3">게시글 작성</h2>
 	
-		<form>
+		<form th:action="/board/board_write" th:method="post">
 			<label class="form-label mt-2" for="title">제목</label>
 			<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력하세요">
 
