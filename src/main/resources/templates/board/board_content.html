@@ -15,22 +15,22 @@
 			
 			<div class="card-body">
 	
-				<h2 class="card-title">게시글 제목</h2>
+				<h2 class="card-title" th:text="'제목 : '+|${board.title}|">게시글 제목</h2>
 			
-				<h5 class="card-subtitle mt-1">글쓴이 : 작성자1</h5>
-				<h6 class="card-subtitle text-end">작성일 : 2023-04-06</h6>
+				<h5 class="card-subtitle mt-1" th:text="'작성자 : '+|${board.author}|">글쓴이 : 작성자1</h5>
+				<h6 class="card-subtitle text-end" th:text="${board.write_date}">작성일 : 2023-04-06</h6>
 				
 				<hr>
 				
-				<p class="card-text">
+				<p class="card-text" th:text="${board.content}">
 					게시글 내용을 여기에 입력하세요.
 				</p>
 				
 				<hr>
 				<div class="d-flex">
-					<button class="btn btn-primary me-auto" onclick="location.href='board_list'">목록으로 돌아가기</button>
-					<button class="btn btn-success me-1" onclick="location.href='board_edit'">수정</button>
-					<button class="btn btn-danger" onclick="location.href='#'">삭제</button>
+					<button class="btn btn-primary me-auto" onclick="location.href='/board/board-list'">목록으로 돌아가기</button>
+					<button class="btn btn-success me-1" onclick="location.href='/board/board-edit'">수정</button>
+					<button class="btn btn-danger" onclick="location.href='/board/board-delete'">삭제</button>
 				</div>
 				
 			
