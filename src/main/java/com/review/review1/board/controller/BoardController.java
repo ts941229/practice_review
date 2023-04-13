@@ -78,19 +78,16 @@ public class BoardController {
 	public String boardEdit(@PathVariable("id") Long id, @ModelAttribute BoardDTO boardDTO) {
 		
 		Board board = boardService.findById(id).get();
+		Board board_edited = Board.builder()
+												.id(id)
+												.title(boardDTO.getTitle())
+												.author(board.getAuthor())
+												.content(boardDTO.getContent())
+												.write_date(board.getWrite_date())
+												.edit_date(Util.getInstance().dateFormat(new Date()))
+												.build();
 		
-		board.toBuilder().title(boardDTO.getTitle())
-							.content(boardDTO.getContent())
-							.edit_date(Util.getInstance().dateFormat(new Date()))
-							.build();
-
-		System.out.println("id : "+board.getId());
-		System.out.println("title : "+board.getTitle());
-		System.out.println("content : "+board.getContent());
-		System.out.println("write_date : "+board.getWrite_date());
-		System.out.println("edit_date : "+board.getEdit_date());
-		
-//		boardService.save(board);
+		boardService.save(board_edited);
 		
 		return "redirect:/board/board-content/"+boardDTO.getId();
 	}
