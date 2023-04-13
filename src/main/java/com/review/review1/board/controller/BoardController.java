@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.review.review1.board.Board;
 import com.review.review1.board.BoardDTO;
+import com.review.review1.board.repository.BoardRepository;
 import com.review.review1.board.service.BoardService;
 import com.review.review1.global.Util;
 
@@ -50,7 +51,7 @@ public class BoardController {
 		return "/board/board_write";
 	}
 	
-	@PostMapping("/board-write")
+	@PostMapping("/write")
 	public String boardWrite(@ModelAttribute BoardDTO boardDTO) {
 		
 		Board board = Board.builder()
@@ -65,17 +66,33 @@ public class BoardController {
 		return "redirect:/board/board-list";
 	}
 	
-	@GetMapping("/board-edit")
-	public String boardEditForm() {
+	@GetMapping("/board-edit/{id}")
+	public String boardEditForm(@PathVariable("id") Long id, Model model) {
+		
+		model.addAttribute("board", boardService.findById(id).get());
+		
 		return "/board/board_edit";
 	}
 	
 	@PutMapping("/edit/{id}")
-	public String boardEdit(@PathVariable("id") Long id) {
+	public String boardEdit(@PathVariable("id") Long id, @ModelAttribute BoardDTO boardDTO) {
 		
-		System.out.println("id : "+id);
+		Board board = boardService.findById(id).get();
 		
-		return "/board/board-content/"+id;
+		board.toBuilder().title(boardDTO.getTitle())
+							.content(boardDTO.getContent())
+							.edit_date(Util.getInstance().dateFormat(new Date()))
+							.build();
+
+		System.out.println("id : "+board.getId());
+		System.out.println("title : "+board.getTitle());
+		System.out.println("content : "+board.getContent());
+		System.out.println("write_date : "+board.getWrite_date());
+		System.out.println("edit_date : "+board.getEdit_date());
+		
+//		boardService.save(board);
+		
+		return "redirect:/board/board-content/"+boardDTO.getId();
 	}
 	
 }

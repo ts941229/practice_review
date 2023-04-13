@@ -23,7 +23,7 @@ import lombok.Setter;
 							  allocationSize = 1)
 public class Board {
 	
-	@Builder
+	@Builder(toBuilder = true)
 	protected Board(Long id, String title, String author, String content, String write_date, String edit_date) {
 		this.id = id;
 		this.title = title;
