@@ -89,7 +89,7 @@ public class BoardController {
 		
 		boardService.save(board_edited);
 		
-		return "redirect:/board/board-content/"+boardDTO.getId();
+		return "redirect:/board/board-content/"+board_edited.getId();
 	}
 	
 }
