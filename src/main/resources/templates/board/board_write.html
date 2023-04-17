@@ -13,7 +13,7 @@
 	
 		<h2 class="mb-3">게시글 작성</h2>
 	
-		<form action="/board/board-write" method="post">
+		<form action="/board/write" method="post">
 			<label class="form-label mt-2" for="title">제목</label>
 			<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력하세요">
 
@@ -23,7 +23,7 @@
 			<label class="form-label mt-2" for="content">내용</label>
 			<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요" rows="10"></textarea>
 
-			<input class="btn btn-primary mt-3" type="submit" value="작성 완료" th:onclick="javascript:confirm('작성하시겠습니까?')">
+			<input class="btn btn-primary mt-3" type="submit" value="작성 완료" th:onclick="if(!(confirm('작성하시겠습니까?'))) return false">
 		</form>
 		
 	</div>

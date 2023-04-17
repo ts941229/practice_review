@@ -6,10 +6,13 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:xe
     username: review1
     password: 1234
-
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       
     show-sql: true
     
