@@ -21,6 +21,7 @@ import com.review.review1.board.service.BoardService;
 import com.review.review1.global.Util;
 
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.proxy.annotation.Methods;
 
 @Controller
 @RequestMapping("/board")
@@ -96,9 +97,9 @@ public class BoardController {
 	@DeleteMapping("/delete/{id}")
 	public String boardDelete(@PathVariable("id") Long id) {
 		
-		System.out.println("boardDelete 탔음");
+		System.out.println("boardDelete 탔음 id : "+id);
 		
-		// boardService.deleteById(id);
+//		boardService.deleteById(id);
 		
 		return "redirect:/board/board-list";
 	}
