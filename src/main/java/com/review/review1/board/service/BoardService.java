@@ -19,7 +19,6 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 	
 	public List<Board> findAll() {
-		
 		return boardRepository.findAll();
 	}
 	
@@ -29,6 +28,10 @@ public class BoardService {
 
 	public Optional<Board> findById(Long id) {
 		return boardRepository.findById(id);
+	}
+	
+	public void deleteById(Long id) {
+		boardRepository.deleteById(id);
 	}
 	
 }
