@@ -97,9 +97,7 @@ public class BoardController {
 	@DeleteMapping("/delete/{id}")
 	public String boardDelete(@PathVariable("id") Long id) {
 		
-		System.out.println("boardDelete 탔음 id : "+id);
-		
-//		boardService.deleteById(id);
+		boardService.deleteById(id);
 		
 		return "redirect:/board/board-list";
 	}
