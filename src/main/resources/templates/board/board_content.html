@@ -31,9 +31,9 @@
 					<button class="btn btn-primary me-auto" onclick="location.href='/board/board-list'">목록으로 돌아가기</button>
 					<button class="btn btn-success me-1" onclick="location.href='/board/board-edit'" th:onclick="|location.href='@{/board/board-edit/{id}(id=${board.id})}'|">수정</button>
 					
-					<!-- <form id="delete_form" action="#" th:action="@{/board/delete/{id}(id=${board.id})}" th:method="delete">
-					</form> -->
-					<button class="btn btn-danger" onclick="location.href='/board/board-delete'" th:onclick="|boardDelete('delete', ${board.id})|">삭제</button>
+					<form id="delete_form" action="#" th:action="@{/board/delete/{id}(id=${board.id})}" th:method="delete">
+					</form>
+					<button class="btn btn-danger" onclick="location.href='/board/board-delete'" th:onclick="|boardDelete()|">삭제</button>
 				</div>
 				
 			
@@ -47,11 +47,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script th:inline="javascript">
-	function boardDelete(method, id){
+	function boardDelete(){
 		
 		if(!confirm('삭제하시겠습니까?')){return false;}
 		
-		$.ajax({
+		/* $.ajax({
 			method : method,
 			type : 'text',
 			url : '/board/delete/'+id,
@@ -62,9 +62,9 @@
 				console.log(error);
 			}
 			
-		});
+		}); */
 		
-		/* $("#delete_form").submit(); */
+		$("#delete_form").submit();
 		
 	}
 </script>
