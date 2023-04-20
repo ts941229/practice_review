@@ -49,14 +49,6 @@ public class BoardController {
 		// 데이터 없는경우
 		if(endPage == 0) {endPage = 1;}
 		
-		System.out.println("nowPage : "+nowPage);
-		
-		System.out.println("startPage : "+startPage);
-		System.out.println("endPage : "+endPage);
-		
-		System.out.println("prev : "+prev);
-		System.out.println("next : "+next);
-		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("startPage", startPage);
