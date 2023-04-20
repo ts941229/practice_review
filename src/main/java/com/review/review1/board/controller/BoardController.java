@@ -36,17 +36,29 @@ public class BoardController {
 	@GetMapping("/board-list")
 	public String boardListForm(Model model, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
 		
-		// PageSize
-		int pageSize = pageable.getPageSize();
-		int nowPage = pageable.getPageNumber();
-		int startPage = ((nowPage - 1) / pageSize) * pageSize + 1;
-		int endPage = startPage + pageSize - 1;
+		Page<Board> boardList = boardService.findAll(pageable);
+		
+		// resources for pagination
+		int pageSize = 5;
+		int nowPage = boardList.getPageable().getPageNumber() + 1;
+		int startPage = Math.max(((nowPage - 1) / pageSize) * pageSize + 1, 0);
+		int endPage = Math.min(startPage + pageSize - 1, boardList.getTotalPages());
 		int prev = startPage - pageSize;
 		int next = startPage + pageSize;
 		
-		Page<Board> boardList = boardService.findAll(pageable);
+		// 데이터 없는경우
+		if(endPage == 0) {endPage = 1;}
+		
+		System.out.println("nowPage : "+nowPage);
+		
+		System.out.println("startPage : "+startPage);
+		System.out.println("endPage : "+endPage);
+		
+		System.out.println("prev : "+prev);
+		System.out.println("next : "+next);
 		
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("prev", prev);

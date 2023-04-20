@@ -21,7 +21,7 @@
 			</tr>
 			
 			<tr th:each="board, boardState : ${boardList}">
-				<td th:text="${boardState.count}">1</td>
+				<td th:text="${board.id}">1</td>
 				<td><a href="#" th:href="@{/board/board-content/{id}(id=${board.id})}" th:text="${board.title}" >글 제목</a></td>
 				<td th:text="${board.author}">작성자1</td>
 				<td th:text="${board.write_date}">2023-03-24</td>
@@ -30,21 +30,26 @@
 		</table>
 		
 		<nav aria-label="Page navigation example">
+		
 		  <ul class="pagination justify-content-center">
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
+		  
+		    <li class="page-item" th:classappend="${startPage!=1 ? '' : 'disabled'}">
+		      <a class="page-link" href="#" aria-label="Previous" th:href="@{/board/board-list?page={prev}(prev=${prev-1})}">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
+		    
 		    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-		    	<li class="page-item"><a class="page-link" href="#" th:text="${page}" th:href="@{/board/board-list?page={page}(page=${page-1})}">1</a></li>	
+		    	<li class="page-item" th:classappend="${nowPage==page ? 'active' : ''}"><a class="page-link" href="#" th:text="${page}" th:href="@{/board/board-list?page={page}(page=${page-1})}">1</a></li>	
 		    </th:block>
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
+		    
+		    <li class="page-item" th:classappend="${endPage<boardList.totalPages ? '' : 'disabled'}">
+		      <a class="page-link" href="#" aria-label="Next" th:href="@{/board/board-list?page={next}(next=${next-1})}">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
 		  </ul>
+		  
 		</nav>
 		
 		<button onclick="location.href='/board/board-write-form';" class="btn btn-primary">글쓰기</button>	
