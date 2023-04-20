@@ -35,11 +35,22 @@ public class BoardController {
 	
 	@GetMapping("/board-list")
 	public String boardListForm(Model model, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
-		System.out.println("pageSize : "+pageable.getPageSize());
+		
+		// PageSize
+		int pageSize = pageable.getPageSize();
+		int nowPage = pageable.getPageNumber();
+		int startPage = ((nowPage - 1) / pageSize) * pageSize + 1;
+		int endPage = startPage + pageSize - 1;
+		int prev = startPage - pageSize;
+		int next = startPage + pageSize;
 		
 		Page<Board> boardList = boardService.findAll(pageable);
 		
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
 		
 		return "/board/board_list";
 	}
