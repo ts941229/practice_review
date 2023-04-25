@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.review.review1.board.Board;
 import com.review.review1.board.BoardDTO;
@@ -34,7 +35,8 @@ public class BoardController {
 	private final BoardService boardService;
 	
 	@GetMapping("/board-list")
-	public String boardListForm(Model model, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
+	public String boardListForm(Model model
+										, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
 		
 		Page<Board> boardList = boardService.findAll(pageable);
 		
@@ -57,6 +59,46 @@ public class BoardController {
 		model.addAttribute("next", next);
 		
 		return "/board/board_list";
+	}
+	
+	@GetMapping("/board-search")
+	public String boardSearchForm(Model model
+											, @RequestParam("keyword") String keyword
+											, @RequestParam("search_category") String search_category
+											, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
+		
+		System.out.println("keyword : "+keyword);
+		System.out.println("search_category : "+search_category);
+		
+		Page<Board> boardList = null;
+		
+		switch (search_category) {
+			case "1" : break;
+			case "2" : boardList = boardService.findAllByTitleContaining(keyword, pageable); break;
+			case "3" : break;
+			case "4" : break;
+		}
+		
+		
+		// resources for pagination
+		int pageSize = 5;
+		int nowPage = boardList.getPageable().getPageNumber() + 1;
+		int startPage = Math.max(((nowPage - 1) / pageSize) * pageSize + 1, 0);
+		int endPage = Math.min(startPage + pageSize - 1, boardList.getTotalPages());
+		int prev = startPage - pageSize;
+		int next = startPage + pageSize;
+		
+		// 데이터 없는경우
+		if(endPage == 0) {endPage = 1;}
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		
+		return "/board/board_search";
 	}
 	
 	@GetMapping("/board-content/{id}")
