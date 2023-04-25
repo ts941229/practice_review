@@ -12,6 +12,20 @@
 	<div  class="container mt-3">
 		
 		<h2>게시판</h2>
+		
+		<form action="/board/board-search">
+			<div class="input-group mb-3 w-75 float-end">
+				<select class="form-select" id="search_category" name="search_category" aria-label="Default select example">
+				  	<option selected value="1">제목 + 내용</option>
+				  	<option value="2">제목</option>
+				  	<option value="3">내용</option>
+				  	<option value="4">작성자</option>
+				</select>
+		  		<input type="text" class="form-control w-50" name="board_search" id="board_search" placeholder="검색어를 입력하세요">
+		  		<button class="btn btn-outline-primary" type="submit" id="button-addon2">검색</button>
+			</div>
+		</form>
+		
 		<table class="table">
 			<tr>
 				<th>번호</th>
