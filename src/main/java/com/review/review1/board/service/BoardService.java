@@ -1,6 +1,5 @@
 package com.review.review1.board.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,22 @@ public class BoardService {
 		return boardRepository.findAll(pageable);
 	}
 	
+	public Page<Board> findAllByTitleContainingOrContentContaining(String keyword, Pageable pageable){
+		return boardRepository.findAllByTitleContainingOrContentContaining(keyword, pageable);
+		
+	}
+	
 	public Page<Board> findAllByTitleContaining(String keyword, Pageable pageable){
 		return boardRepository.findAllByTitleContaining(keyword, pageable);
 		
+	}
+	
+	public Page<Board> findAllByContentContaining(String keyword, Pageable pageable){
+		return boardRepository.findAllByContentContaining(keyword, pageable);
+	}
+	
+	public Page<Board> findAllByAuthorContaining(String keyword, Pageable pageable){
+		return boardRepository.findAllByAuthorContaining(keyword, pageable);
 	}
 	
 	public void save(Board board) {

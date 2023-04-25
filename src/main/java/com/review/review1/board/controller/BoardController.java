@@ -70,13 +70,13 @@ public class BoardController {
 		System.out.println("keyword : "+keyword);
 		System.out.println("search_category : "+search_category);
 		
-		Page<Board> boardList = null;
+		Page<Board> boardList = boardService.findAll(pageable);
 		
 		switch (search_category) {
-			case "1" : break;
+			case "1" : boardList = boardService.findAllByTitleContainingOrContentContaining(keyword, pageable); break;
 			case "2" : boardList = boardService.findAllByTitleContaining(keyword, pageable); break;
-			case "3" : break;
-			case "4" : break;
+			case "3" : boardList = boardService.findAllByContentContaining(keyword, pageable); break;
+			case "4" : boardList = boardService.findAllByAuthorContaining(keyword, pageable); break;
 		}
 		
 		
