@@ -16,12 +16,12 @@
 		<form action="/board/board-search">
 			<div class="input-group mb-3 w-75 float-end">
 				<select class="form-select" id="search_category" name="search_category" aria-label="Default select example">
-				  	<option selected value="1">제목 + 내용</option>
-				  	<option value="2">제목</option>
-				  	<option value="3">내용</option>
-				  	<option value="4">작성자</option>
+				  	<option selected value="1" th:selected="${search_category}==1">제목 + 내용</option>
+				  	<option value="2" th:selected="${search_category}==2">제목</option>
+				  	<option value="3" th:selected="${search_category}==3">내용</option>
+				  	<option value="4" th:selected="${search_category}==4">작성자</option>
 				</select>
-		  		<input type="text" class="form-control w-50" name="keyword" id="keyword" placeholder="검색어를 입력하세요">
+		  		<input type="text" class="form-control w-50" name="keyword" id="keyword" placeholder="검색어를 입력하세요" th:text="${keyword}">
 		  		<button class="btn btn-outline-primary" type="submit" id="button-addon2">검색</button>
 			</div>
 		</form>
@@ -48,17 +48,17 @@
 		  <ul class="pagination justify-content-center">
 		  
 		    <li class="page-item" th:classappend="${startPage!=1 ? '' : 'disabled'}">
-		      <a class="page-link" href="#" aria-label="Previous" th:href="@{/board/board-list?page={prev}(prev=${prev-1})}">
+		      <a class="page-link" href="#" aria-label="Previous" th:href="@{/board/board-list?page={prev}&search_category={search_category}&keyword={keyword}(prev=${prev-1}, search_category=${search_category}, keyword=${keyword})}">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
 		    
 		    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-		    	<li class="page-item" th:classappend="${nowPage==page ? 'active' : ''}"><a class="page-link" href="#" th:text="${page}" th:href="@{/board/board-list?page={page}(page=${page-1})}">1</a></li>	
+		    	<li class="page-item" th:classappend="${nowPage==page ? 'active' : ''}"><a class="page-link" href="#" th:text="${page}" th:href="@{/board/board-list?page={page}&search_category={search_category}&keyword={keyword}(page=${page-1}, search_category=${search_category}, keyword=${keyword})}">1</a></li>	
 		    </th:block>
 		    
 		    <li class="page-item" th:classappend="${endPage<boardList.totalPages ? '' : 'disabled'}">
-		      <a class="page-link" href="#" aria-label="Next" th:href="@{/board/board-list?page={next}(next=${next-1})}">
+		      <a class="page-link" href="#" aria-label="Next" th:href="@{/board/board-list?page={next}&search_category={search_category}&keyword={keyword}(next=${next-1}, search_category=${search_category}, keyword=${keyword})}">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>

@@ -67,9 +67,6 @@ public class BoardController {
 											, @RequestParam("search_category") String search_category
 											, @PageableDefault(page = 0, size = 5, sort = "id" , direction = Direction.DESC) Pageable pageable) {
 		
-		System.out.println("keyword : "+keyword);
-		System.out.println("search_category : "+search_category);
-		
 		Page<Board> boardList = boardService.findAll(pageable);
 		
 		switch (search_category) {
@@ -78,7 +75,6 @@ public class BoardController {
 			case "3" : boardList = boardService.findAllByContentContaining(keyword, pageable); break;
 			case "4" : boardList = boardService.findAllByAuthorContaining(keyword, pageable); break;
 		}
-		
 		
 		// resources for pagination
 		int pageSize = 5;
@@ -97,6 +93,8 @@ public class BoardController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("prev", prev);
 		model.addAttribute("next", next);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("search_category", search_category);
 		
 		return "/board/board_search";
 	}
