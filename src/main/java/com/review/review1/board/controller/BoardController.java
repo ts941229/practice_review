@@ -70,10 +70,10 @@ public class BoardController {
 		Page<Board> boardList = boardService.findAll(pageable);
 		
 		switch (search_category) {
-			case "1" : boardList = boardService.findAllByTitleContainingOrContentContaining(keyword, pageable); break;
-			case "2" : boardList = boardService.findAllByTitleContaining(keyword, pageable); break;
-			case "3" : boardList = boardService.findAllByContentContaining(keyword, pageable); break;
-			case "4" : boardList = boardService.findAllByAuthorContaining(keyword, pageable); break;
+			case "title_or_content" : boardList = boardService.findAllByTitleContainingOrContentContaining(keyword, pageable); break;
+			case "title" : boardList = boardService.findAllByTitleContaining(keyword, pageable); break;
+			case "content" : boardList = boardService.findAllByContentContaining(keyword, pageable); break;
+			case "author" : boardList = boardService.findAllByAuthorContaining(keyword, pageable); break;
 		}
 		
 		// resources for pagination
