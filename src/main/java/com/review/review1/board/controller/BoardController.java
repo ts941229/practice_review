@@ -87,6 +87,12 @@ public class BoardController {
 		// 데이터 없는경우
 		if(endPage == 0) {endPage = 1;}
 		
+		boolean isEmpty = false;
+		
+		if(boardList.toList().size()<1) {
+			isEmpty = true;
+		}
+		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("startPage", startPage);
@@ -95,6 +101,8 @@ public class BoardController {
 		model.addAttribute("next", next);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("search_category", search_category);
+		model.addAttribute("isEmpty", isEmpty);
+		
 		
 		return "/board/board_search";
 	}
