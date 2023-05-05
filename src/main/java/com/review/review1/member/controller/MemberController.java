@@ -2,6 +2,7 @@ package com.review.review1.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,11 +49,26 @@ public class MemberController {
 	}
 	
 	@PostMapping("/regist")
-	public String regist(@ModelAttribute MemberDTO memberDTO) {
+	public String regist(@ModelAttribute MemberDTO memberDTO, Model model) {
+		
+		// 해당 이메일로 검색된 member가 없다면 가입
+		if(memberService.findByEmail(memberDTO.getEmail())==null) {
+			
+			Member member = Member.builder()
+					.email(memberDTO.getEmail())
+					.password(memberDTO.getPassword())
+					.build();
+			
+			memberService.save(member);
+			
+			return "redirect:/";
+		}else {
+			model.addAttribute("isDeny", "yes");
+			return "/member/regist";
+		}
 		
 		
 		
-		return "redirect:/";
 	}
 	
 	

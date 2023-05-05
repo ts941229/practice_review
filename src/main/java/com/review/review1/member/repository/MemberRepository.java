@@ -6,4 +6,8 @@ import com.review.review1.member.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
 
+	public Member findByEmail(String email);
+
+	
+	
 }
