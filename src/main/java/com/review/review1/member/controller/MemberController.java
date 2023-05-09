@@ -1,8 +1,13 @@
 package com.review.review1.member.controller;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,7 +54,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("/regist")
-	public String regist(@ModelAttribute MemberDTO memberDTO, Model model) {
+	public String regist(@ModelAttribute @Validated MemberDTO memberDTO, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			for(ObjectError error : bindingResult.getAllErrors()) {
+				System.out.println("error : "+error.getDefaultMessage()); 
+			}
+		}
 		
 		// 해당 이메일로 검색된 member가 없다면 가입
 		if(memberService.findByEmail(memberDTO.getEmail())==null) {
@@ -59,15 +70,13 @@ public class MemberController {
 					.password(memberDTO.getPassword())
 					.build();
 			
-			memberService.save(member);
+//			memberService.save(member);
 			
 			return "redirect:/";
 		}else {
 			model.addAttribute("isDeny", "yes");
 			return "/member/regist";
 		}
-		
-		
 		
 	}
 	
