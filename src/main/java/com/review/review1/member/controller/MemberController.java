@@ -1,5 +1,6 @@
 package com.review.review1.member.controller;
 
+
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,26 +57,32 @@ public class MemberController {
 	@PostMapping("/regist")
 	public String regist(@ModelAttribute @Validated MemberDTO memberDTO, BindingResult bindingResult, Model model) {
 		
-		if(bindingResult.hasErrors()) {
-			for(ObjectError error : bindingResult.getAllErrors()) {
-				System.out.println("error : "+error.getDefaultMessage()); 
-			}
+		if(memberService.findByEmail(memberDTO.getEmail())!=null) {
+			FieldError fieldError = new FieldError("memberDTO", "email", "중복된 이메일 입니다.");
+			bindingResult.addError(fieldError);
 		}
 		
-		// 해당 이메일로 검색된 member가 없다면 가입
-		if(memberService.findByEmail(memberDTO.getEmail())==null) {
+		if(bindingResult.hasErrors()) {
 			
+			// 회원가입 실패시 작성한 dto폼 유지
+			model.addAttribute("memberDTO", memberDTO);
+			
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				// 유효성 에러 발생시 키값 : valid_필드명 , 밸류 : 해당 에러 메시지로 어트리뷰트 보냄 
+				// ex ) valid_password , 비밀번호를 입력하세요.
+				model.addAttribute("valid_"+error.getField(), error.getDefaultMessage());
+			}
+			
+			return "/member/regist";
+			
+		}else {
 			Member member = Member.builder()
 					.email(memberDTO.getEmail())
 					.password(memberDTO.getPassword())
 					.build();
 			
 //			memberService.save(member);
-			
 			return "redirect:/";
-		}else {
-			model.addAttribute("isDeny", "yes");
-			return "/member/regist";
 		}
 		
 	}
