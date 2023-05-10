@@ -81,7 +81,7 @@ public class MemberController {
 					.password(memberDTO.getPassword())
 					.build();
 			
-//			memberService.save(member);
+			memberService.save(member);
 			return "redirect:/";
 		}
 		
