@@ -39,10 +39,6 @@ public class MemberController {
 											.password(memberDTO.getPassword())
 											.build();
 		
-		System.out.println("email : "+member.getEmail());
-		System.out.println("password : "+member.getPassword());
-		
-		
 		return "redirect:/";
 	}
 	
